@@ -3,67 +3,55 @@ console.log('Apps.js is running!');
 const app = {
     title: 'Indecision App',
     subtitle: 'This is some info',
-    options: ['One', 'Two']
-}
-// wrap parenthesis () to root tag is syntactic sugar
-const template = (
-    <div>
-        <h1>{app.title}</h1>
-        {app.subtitle && <p>{app.subtitle}</p>}
-        <ol>
-            <li>Item 1</li>
-            <li>Item 2</li>
-        </ol>
-        <p>{(app.options && app.options.length > 0) ? 'Here are your options' : 'No options'}</p>
-    </div>
-);
-
-const user = {
-    name: 'Hoang',
-    age: 21,
-    location: 'Plano, TX'
+    options: []
 };
 
-function getLocation(location) {
-    if (location) {
-        return <p>Location: {location}</p>;
+const onFormSubmit = (e) => {
+    e.preventDefault();
+    
+    const option = e.target.elements.option.value;  // get form element value
+
+    if (option) {
+        app.options.push(option);   // add element to array
+        e.target.elements.option.value = '';    // clear form element value
+        renderAppFunction()
     }
-    // implicit returning 'undefined' for function that returns
+
 };
 
-// 'undefined', 'null' are ignored by JSX
-// ternary: condition ? a : b
-// true && something -> something
-// false && something -> false
-
-let count = 0;
-const addOne = () => {
-    count++;
-    renderCounterApp();
-};
-const minusOne = () => {
-    count--;
-    renderCounterApp();
-};
-const reset = () => {
-    count = 0;
-    renderCounterApp();
+const onRemoveAll = () => {
+    app.options = [];
+    renderAppFunction()
 };
 
-const appRoot = document.getElementById('app');
-
-const renderCounterApp = () => {
-    const template2 = (
+const onMakeDecision = () => {
+    const randomNum = Math.floor(Math.random() * app.options.length);
+    const option = app.options[randomNum];
+};
+// leverage JS .map to do additional things to value in array
+const renderAppFunction = () => {
+    // wrap parenthesis () to root tag is syntactic sugar
+    const template = (
         <div>
-            <h1>Count: {count}</h1>
-            <button onClick={addOne}>+1</button>
-            <button onClick={minusOne}>-1</button>
-            <button onClick={reset}>Reset</button>
+            <h1>{app.title}</h1>
+            {app.subtitle && <p>{app.subtitle}</p>}
+            <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
+            <button disabled={app.options.length === 0} onClick={onMakeDecision}>What should I do?</button>
+            <button onClick={onRemoveAll}>Remove All</button>
+            <ol>
+            {
+                app.options.map((option) => <li key={option}>Option: {option}</li>)
+            }
+            </ol>
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option" />
+                <button>Add Option</button>
+            </form>
         </div>
     );
 
-    // ReactDOM is a virtual DOM that looks for deltas in app state changes and applies to only that
-    ReactDOM.render(template2, appRoot);
+    const appRoot = document.getElementById('app');
+    ReactDOM.render(template, appRoot);
 };
 
-renderCounterApp();
+renderAppFunction();

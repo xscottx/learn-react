@@ -5,110 +5,87 @@ console.log('Apps.js is running!');
 var app = {
     title: 'Indecision App',
     subtitle: 'This is some info',
-    options: ['One', 'Two']
-    // wrap parenthesis () to root tag is syntactic sugar
-};var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        app.title
-    ),
-    app.subtitle && React.createElement(
-        'p',
-        null,
-        app.subtitle
-    ),
-    React.createElement(
-        'ol',
-        null,
-        React.createElement(
-            'li',
-            null,
-            'Item 1'
-        ),
-        React.createElement(
-            'li',
-            null,
-            'Item 2'
-        )
-    ),
-    React.createElement(
-        'p',
-        null,
-        app.options && app.options.length > 0 ? 'Here are your options' : 'No options'
-    )
-);
-
-var user = {
-    name: 'Hoang',
-    age: 21,
-    location: 'Plano, TX'
+    options: []
 };
 
-function getLocation(location) {
-    if (location) {
-        return React.createElement(
-            'p',
-            null,
-            'Location: ',
-            location
-        );
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault();
+
+    var option = e.target.elements.option.value; // get form element value
+
+    if (option) {
+        app.options.push(option); // add element to array
+        e.target.elements.option.value = ''; // clear form element value
+        renderAppFunction();
     }
-    // implicit returning 'undefined' for function that returns
 };
 
-// 'undefined', 'null' are ignored by JSX
-// ternary: condition ? a : b
-// true && something -> something
-// false && something -> false
-
-var count = 0;
-var addOne = function addOne() {
-    count++;
-    renderCounterApp();
-};
-var minusOne = function minusOne() {
-    count--;
-    renderCounterApp();
-};
-var reset = function reset() {
-    count = 0;
-    renderCounterApp();
+var onRemoveAll = function onRemoveAll() {
+    app.options = [];
+    renderAppFunction();
 };
 
-var appRoot = document.getElementById('app');
-
-var renderCounterApp = function renderCounterApp() {
-    var template2 = React.createElement(
+var onMakeDecision = function onMakeDecision() {
+    var randomNum = Math.floor(Math.random() * app.options.length);
+    var option = app.options[randomNum];
+};
+// leverage JS .map to do additional things to value in array
+var renderAppFunction = function renderAppFunction() {
+    // wrap parenthesis () to root tag is syntactic sugar
+    var template = React.createElement(
         'div',
         null,
         React.createElement(
             'h1',
             null,
-            'Count: ',
-            count
+            app.title
+        ),
+        app.subtitle && React.createElement(
+            'p',
+            null,
+            app.subtitle
+        ),
+        React.createElement(
+            'p',
+            null,
+            app.options.length > 0 ? 'Here are your options' : 'No options'
         ),
         React.createElement(
             'button',
-            { onClick: addOne },
-            '+1'
+            { disabled: app.options.length === 0, onClick: onMakeDecision },
+            'What should I do?'
         ),
         React.createElement(
             'button',
-            { onClick: minusOne },
-            '-1'
+            { onClick: onRemoveAll },
+            'Remove All'
         ),
         React.createElement(
-            'button',
-            { onClick: reset },
-            'Reset'
+            'ol',
+            null,
+            app.options.map(function (option) {
+                return React.createElement(
+                    'li',
+                    { key: option },
+                    'Option: ',
+                    option
+                );
+            })
+        ),
+        React.createElement(
+            'form',
+            { onSubmit: onFormSubmit },
+            React.createElement('input', { type: 'text', name: 'option' }),
+            React.createElement(
+                'button',
+                null,
+                'Add Option'
+            )
         )
     );
 
-    // ReactDOM is a virtual DOM that looks for deltas in app state changes and applies to only that
-    ReactDOM.render(template2, appRoot);
+    var appRoot = document.getElementById('app');
+    ReactDOM.render(template, appRoot);
 };
 
-renderCounterApp();
+renderAppFunction();
