@@ -1,57 +1,120 @@
-console.log('Apps.js is running!');
-
-const app = {
-    title: 'Indecision App',
-    subtitle: 'This is some info',
-    options: []
+const obj = {
+    name: 'Vikram',
+    getName() {
+        return this.name;
+    }
 };
 
-const onFormSubmit = (e) => {
-    e.preventDefault();
-    
-    const option = e.target.elements.option.value;  // get form element value
+const getName = obj.getName;    // won't work bc the 'this' reference is not inside 'obj'
+const getName2 = obj.getName.bind({name: 'Andrew' });    // works with a bind that forces name to return
+console.log(getName2());
 
-    if (option) {
-        app.options.push(option);   // add element to array
-        e.target.elements.option.value = '';    // clear form element value
-        renderAppFunction()
+class IndecisionApp extends React.Component {
+    render() {
+        const title = 'Indecision';
+        const subtitle = 'Put your life in the hands of a computer';
+        const options = ['Thing one', 'Thing two', 'Thing four'];
+
+        return (
+            <div>
+                <Header title={title} subtitle={subtitle} />
+                <Action />
+                <Options options={options} />
+                <AddOption />
+            </div>
+        )
+    }
+}
+class Header extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>{this.props.title}</h1>
+                <h2>{this.props.subtitle}</h2>
+            </div>
+        )
+    }
+}
+
+// when u do this.handlePick, that's passing by reference, not by value. eg., don't invoke
+class Action extends React.Component {
+    handlePick() {
+        alert('handlePick');
     }
 
-};
+    render() {
+        return (
+            <div>
+                <button onClick={this.handlePick}>What should I do?</button>
+            </div>
+        )
+    }
+}
 
-const onRemoveAll = () => {
-    app.options = [];
-    renderAppFunction()
-};
+// .map operator takes an array, puts foreach element 'option' and maps to additional stuff
+class Options extends React.Component {
+    constructor(props) {
+        super(props);
+        // making sure that the context of this for handleRemoveAll will always be used for remove all
+        this.handleRemoveAll = this.handleRemoveAll.bind(this);
+    }
 
-const onMakeDecision = () => {
-    const randomNum = Math.floor(Math.random() * app.options.length);
-    const option = app.options[randomNum];
-};
-// leverage JS .map to do additional things to value in array
-const renderAppFunction = () => {
-    // wrap parenthesis () to root tag is syntactic sugar
-    const template = (
-        <div>
-            <h1>{app.title}</h1>
-            {app.subtitle && <p>{app.subtitle}</p>}
-            <p>{app.options.length > 0 ? 'Here are your options' : 'No options'}</p>
-            <button disabled={app.options.length === 0} onClick={onMakeDecision}>What should I do?</button>
-            <button onClick={onRemoveAll}>Remove All</button>
-            <ol>
-            {
-                app.options.map((option) => <li key={option}>Option: {option}</li>)
-            }
-            </ol>
-            <form onSubmit={onFormSubmit}>
-                <input type="text" name="option" />
-                <button>Add Option</button>
-            </form>
-        </div>
-    );
+    handleRemoveAll() {
+        console.log(this.props.options);    // doesn't work! 'props' is null, need to bind
+        // alert('handleRemoveall');
+    }
 
-    const appRoot = document.getElementById('app');
-    ReactDOM.render(template, appRoot);
-};
+    render() {
+        return (
+            <div>
+                <button onClick={this.handleRemoveAll}>Remove All</button>
+                {
+                    this.props.options.map((option) => <Option key={option} optionText={option} />)
+                }
+            </div>
+        )
+    }
+}
 
-renderAppFunction();
+class Option extends React.Component {
+    render() {
+        return (
+            <div>
+                {
+                    this.props.optionText   
+                }
+            </div>
+        )
+    }
+}
+
+
+class AddOption extends React.Component {
+    constructor(props) {
+        super(props);
+        // making sure that the context of this for handleAddOption will always be used for AddOptions
+        this.handleAddOption = this.handleAddOption.bind(this);
+    }
+
+    handleAddOption(event) {
+        event.preventDefault();
+        const option = event.target.elements.hoang.value.trim();  // hoang comes from input name attribute
+        option && alert(option);
+    }
+
+    // makes sure the bind of this is the same in render as in AddOption
+    // <form onSubmit={this.handleAddOption.bind(this)}>  // but this is inefficient bc it will bind on every render
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.handleAddOption}>
+                    <input type="text" name="hoang" />
+                    <button>Submit Button</button>
+                </form>
+            </div>
+        )
+    }
+}
+
+// leverage JSX syntax to throw in indecisionapp 
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
