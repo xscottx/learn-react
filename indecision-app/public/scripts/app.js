@@ -9,8 +9,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // stateless functional component
-// need state? -> use class
-// don't need state? -> use stateless functional component
+// need state or lifecycle? -> use class
+// don't need state or lifecycle? -> use stateless functional component
 
 var IndecisionApp = function (_React$Component) {
     _inherits(IndecisionApp, _React$Component);
@@ -21,7 +21,7 @@ var IndecisionApp = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
         _this.state = {
-            options: props.options
+            options: []
         };
 
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
@@ -31,10 +31,53 @@ var IndecisionApp = function (_React$Component) {
         return _this;
     }
 
-    // need to pass callback function in to listen for events in child to be invoked here to update state (parent)
+    // START LIFECYCLE METHODS
+    // when component loads
 
 
     _createClass(IndecisionApp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log('fetching data');
+            // JSON.stringify takes object and makes it into string representation
+            // JSON.parse takes string representation, and puts into JSON object
+            try {
+                var json = localStorage.getItem('options');
+                var options = JSON.parse(json);
+                if (options) {
+                    this.setState(function () {
+                        return { options: options };
+                    });
+                }
+            } catch (e) {
+                // do nothing
+            }
+        }
+
+        // when state has changed, and has access to props & state
+
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            if (prevState.options.length !== this.state.options.length) {
+                var json = JSON.stringify(this.state.options);
+                localStorage.setItem('options', json);
+                console.log('saving data');
+            }
+        }
+
+        // when components unmount, usually happens when goes to new page
+
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            console.log('componentWillUnmount');
+        }
+
+        // END LIFECYCLE METHODS
+        // need to pass callback function in to listen for events in child to be invoked here to update state (parent)
+
+    }, {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
 
@@ -101,7 +144,6 @@ var IndecisionApp = function (_React$Component) {
         key: 'render',
         value: function render() {
             var subtitle = 'Put your life in the hands of a computer';
-            console.log('options: ' + this.state.options);
             return React.createElement(
                 'div',
                 null,
@@ -126,10 +168,6 @@ var IndecisionApp = function (_React$Component) {
 
     return IndecisionApp;
 }(React.Component);
-
-IndecisionApp.defaultProps = {
-    options: []
-};
 
 var Header = function Header(props) {
     return React.createElement(
@@ -173,8 +211,16 @@ var Options = function Options(props) {
         null,
         React.createElement(
             'button',
-            { onClick: props.handleDeleteOptions },
+            {
+                onClick: props.handleDeleteOptions,
+                disabled: props.options.length === 0
+            },
             'Remove All'
+        ),
+        props.options.length === 0 && React.createElement(
+            'p',
+            null,
+            'Please add an option to get started!'
         ),
         props.options.map(function (option) {
             return React.createElement(Option, {
