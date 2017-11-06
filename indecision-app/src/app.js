@@ -1,2 +1,6 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import IndecisionApp from './components/indecision-app';
 
-console.log('app.js is running');
+// leverage JSX syntax to throw in indecisionapp 
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
