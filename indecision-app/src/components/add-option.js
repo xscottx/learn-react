@@ -1,18 +1,23 @@
 import React from 'react';
 
 export default class AddOption extends React.Component {
+  state = {
+    error: undefined
+  }
   constructor(props) {
       super(props);
-      // making sure that the context of this for handleAddOption will always be used for AddOptions
-      this.handleAddOption = this.handleAddOption.bind(this);
+      // making sure that the context of this for handleAddOption will always be used for 
+      // don't need this if you have arrow function
+      // this.handleAddOption = this.handleAddOption.bind(this);
 
-      this.state = {
-          error: undefined
-      }
+      // don't need this anymore and use variable up top if u use babel-plugin-transform-class-properties stage-2
+      // this.state = {
+      //     error: undefined
+      // }
   }
 
   // leaving handleAddOption in here so that we can do form-related things inside AddOption and not in parent
-  handleAddOption(event) {
+  handleAddOption = (event) => {
       event.preventDefault();
       const option = event.target.elements.optshon.value.trim();
       const error = this.props.handleAddOption(option);

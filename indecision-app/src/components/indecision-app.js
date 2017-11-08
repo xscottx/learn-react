@@ -9,18 +9,22 @@ import Action from './action';
 // don't need state or lifecycle? -> use stateless functional component
 
 export default class IndecisionApp extends React.Component {
-  constructor(props) {
-      super(props);
-
-      this.state = {
-          options: []
-      }
-
-      this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-      this.handleAddOption = this.handleAddOption.bind(this);
-      this.handlePick = this.handlePick.bind(this);
-      this.handleDeleteOption = this.handleDeleteOption.bind(this);
+  state = {
+    options: []
   }
+
+  // constructor(props) {
+      // super(props);
+
+      // this.state = {
+      //     options: []
+      // }
+
+      // this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+      // this.handleAddOption = this.handleAddOption.bind(this);
+      // this.handlePick = this.handlePick.bind(this);
+      // this.handleDeleteOption = this.handleDeleteOption.bind(this);
+  // }
 
   // START LIFECYCLE METHODS
   // when component loads
@@ -56,7 +60,7 @@ export default class IndecisionApp extends React.Component {
 
   // END LIFECYCLE METHODS
   // need to pass callback function in to listen for events in child to be invoked here to update state (parent)
-  handleDeleteOptions() {
+  handleDeleteOptions = () => {
 
       // old school syntax
   //     this.setState(() => {
@@ -72,7 +76,7 @@ export default class IndecisionApp extends React.Component {
       const num2 = () => ({})    // returns empty option back
   }
 
-  handleAddOption(option) {
+  handleAddOption = (option) => {
       console.log('handleAddOption: ' + option);
       // event.preventDefault();
       // const option = event.target.elements.optshon.value.trim();  // optshon comes from input name attribute
@@ -92,14 +96,14 @@ export default class IndecisionApp extends React.Component {
       }
   }
 
-  handlePick() {
+  handlePick = () => {
       console.log('handlePick');
       const randomNum = Math.floor(Math.random() * this.state.options.length);
       const option = this.state.options[randomNum];
       alert('randomly picked option: ' + option);
   }
 
-  handleDeleteOption(optionToRemove) {
+  handleDeleteOption = (optionToRemove) => {
       console.log('handleDeleteOption', optionToRemove);
       // leverage Arrays.filter to create a new array of options filtering out the unmatched one
       this.setState((prevState) => ({
