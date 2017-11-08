@@ -4,6 +4,7 @@ export default class AddOption extends React.Component {
   state = {
     error: undefined
   }
+  
   constructor(props) {
       super(props);
       // making sure that the context of this for handleAddOption will always be used for 
