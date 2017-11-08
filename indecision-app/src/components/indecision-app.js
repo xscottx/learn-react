@@ -3,6 +3,7 @@ import AddOption from './add-option';
 import Options from './options';
 import Header from './header';
 import Action from './action';
+import OptionModal from './option-modal';
 
 // stateless functional component
 // need state or lifecycle? -> use class
@@ -10,7 +11,8 @@ import Action from './action';
 
 export default class IndecisionApp extends React.Component {
   state = {
-    options: []
+    options: [],
+    selectedOption: undefined
   }
 
   // constructor(props) {
@@ -100,7 +102,7 @@ export default class IndecisionApp extends React.Component {
       console.log('handlePick');
       const randomNum = Math.floor(Math.random() * this.state.options.length);
       const option = this.state.options[randomNum];
-      alert('randomly picked option: ' + option);
+      this.setState(() => ({ selectedOption: option }));
   }
 
   handleDeleteOption = (optionToRemove) => {
@@ -111,6 +113,10 @@ export default class IndecisionApp extends React.Component {
               return optionToRemove !== option;
           })
       }));
+  }
+
+  handleClearSelectedOption = () => {
+    this.setState(() => ({ selectedOption: undefined }));
   }
 
   render() {
@@ -131,6 +137,10 @@ export default class IndecisionApp extends React.Component {
               />
               <AddOption
                   handleAddOption={this.handleAddOption}
+              />
+              <OptionModal 
+                selectedOption={this.state.selectedOption}
+                handleClearSelectedOption={this.handleClearSelectedOption}
               />
           </div>
       )

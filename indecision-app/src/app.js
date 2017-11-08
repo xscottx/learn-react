@@ -5,6 +5,30 @@ import IndecisionApp from './components/indecision-app';
 // leverage JSX syntax to throw in indecisionapp 
 ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
 
+// const Layout = (props) => {
+//   return (
+//     <div>
+//       <p>header</p>
+//       {props.children}
+//       <p>footer</p>
+//     </div>
+//   );
+// }
+
+// const template = (
+//   <div>
+//     <h1>Page Title</h1>
+//     <p>This is my page</p>
+//   </div>
+// )
+
+
+// use props to pass into JSX
+// ReactDOM.render(<Layout content={template}/>, document.getElementById('app'));
+
+// allows you to pass JSX into JSX into props, must use props.children inside JSX to access
+// ReactDOM.render(<Layout><p>This is inline</p></Layout>, document.getElementById('app'));
+
 // class OldSyntax {
 //   constructor() {
 //     this.name = 'Mike';
