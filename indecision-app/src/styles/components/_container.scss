@@ -1,0 +1,5 @@
+.container {
+  max-width: 60rem; // if don't set this, we take over 100% of width
+  margin: 0 auto; // auto adjust on left and right
+  padding: 0 $m-size; // this helps put a small padding on left and right
+}

@@ -8,6 +8,7 @@ console.log(path.join(__dirname, 'public'));
 // node thing, allows node to see configs
 // can't just use JSX inside webpack without babel
 // created a rule for file that ends in .js not in node_modules, run thru babel
+// created new rule to handle css and scss (style) loaders
 module.exports = {
   entry: './src/app.js',
   output: {
@@ -19,6 +20,13 @@ module.exports = {
       loader: 'babel-loader',
       test: /\.js$/,
       exclude: /node_modules/
+    }, {
+      test: /\.s?css$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        'sass-loader'
+      ]
     }]
   },
   // LIFE HACK! source map shows exact file and line of code where error is in development

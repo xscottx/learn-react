@@ -10,139 +10,145 @@ import OptionModal from './option-modal';
 // don't need state or lifecycle? -> use stateless functional component
 
 export default class IndecisionApp extends React.Component {
-  state = {
-    options: [],
-    selectedOption: undefined
-  }
+    state = {
+        options: [],
+        selectedOption: undefined
+    }
 
-  // constructor(props) {
-      // super(props);
+    // constructor(props) {
+    // super(props);
 
-      // this.state = {
-      //     options: []
-      // }
+    // this.state = {
+    //     options: []
+    // }
 
-      // this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
-      // this.handleAddOption = this.handleAddOption.bind(this);
-      // this.handlePick = this.handlePick.bind(this);
-      // this.handleDeleteOption = this.handleDeleteOption.bind(this);
-  // }
+    // this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
+    // this.handleAddOption = this.handleAddOption.bind(this);
+    // this.handlePick = this.handlePick.bind(this);
+    // this.handleDeleteOption = this.handleDeleteOption.bind(this);
+    // }
 
-  // START LIFECYCLE METHODS
-  // when component loads
-  componentDidMount() {
-      console.log('fetching data');
-      // JSON.stringify takes object and makes it into string representation
-      // JSON.parse takes string representation, and puts into JSON object
-      try {
-          const json = localStorage.getItem('options');
-          const options = JSON.parse(json);
-          if (options) {
-              this.setState(() => ({ options }));
-          }
-      } catch (e) {
-          // do nothing
-      }
-      
-  }
+    // START LIFECYCLE METHODS
+    // when component loads
+    componentDidMount() {
+        console.log('fetching data');
+        // JSON.stringify takes object and makes it into string representation
+        // JSON.parse takes string representation, and puts into JSON object
+        try {
+            const json = localStorage.getItem('options');
+            const options = JSON.parse(json);
+            if (options) {
+                this.setState(() => ({ options }));
+            }
+        } catch (e) {
+            // do nothing
+        }
 
-  // when state has changed, and has access to props & state
-  componentDidUpdate(prevProps, prevState) {
-      if (prevState.options.length !== this.state.options.length) {
-          const json = JSON.stringify(this.state.options);
-          localStorage.setItem('options', json);
-          console.log('saving data');
-      }
-  }
+    }
 
-  // when components unmount, usually happens when goes to new page
-  componentWillUnmount() {
-      console.log('componentWillUnmount');
-  }
+    // when state has changed, and has access to props & state
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.options.length !== this.state.options.length) {
+            const json = JSON.stringify(this.state.options);
+            localStorage.setItem('options', json);
+            console.log('saving data');
+        }
+    }
 
-  // END LIFECYCLE METHODS
-  // need to pass callback function in to listen for events in child to be invoked here to update state (parent)
-  handleDeleteOptions = () => {
+    // when components unmount, usually happens when goes to new page
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
 
-      // old school syntax
-  //     this.setState(() => {
-  //         return {
-  //             options: []
-  //         }
-  //     });
+    // END LIFECYCLE METHODS
+    // need to pass callback function in to listen for events in child to be invoked here to update state (parent)
+    handleDeleteOptions = () => {
 
-      // ES6 syntax
-      this.setState(() => ({ options: [] }));  // returns state object back with options
+        // old school syntax
+        //     this.setState(() => {
+        //         return {
+        //             options: []
+        //         }
+        //     });
 
-      const num = () => {}    // returns nothing back
-      const num2 = () => ({})    // returns empty option back
-  }
+        // ES6 syntax
+        this.setState(() => ({ options: [] }));  // returns state object back with options
 
-  handleAddOption = (option) => {
-      console.log('handleAddOption: ' + option);
-      // event.preventDefault();
-      // const option = event.target.elements.optshon.value.trim();  // optshon comes from input name attribute
-      if (!option) {
-          return 'Enter valid value to add item';
-      }
-      else if (this.state.options.indexOf(option) > -1) {
-          return 'This option already exists';
-      }
-      else {
-          // BAD options: prevState.options.push(option) <- changing previous state
-          // GOOD use array concat method options: prevState.options.concat([option])
-          // BEST use array concat method options: prevState.options.concat(option)
-          this.setState((prevState) => ({
-              options: prevState.options.concat(option)
-          }))
-      }
-  }
+        const num = () => { }    // returns nothing back
+        const num2 = () => ({})    // returns empty option back
+    }
 
-  handlePick = () => {
-      console.log('handlePick');
-      const randomNum = Math.floor(Math.random() * this.state.options.length);
-      const option = this.state.options[randomNum];
-      this.setState(() => ({ selectedOption: option }));
-  }
+    handleAddOption = (option) => {
+        console.log('handleAddOption: ' + option);
+        // event.preventDefault();
+        // const option = event.target.elements.optshon.value.trim();  // optshon comes from input name attribute
+        if (!option) {
+            return 'Enter valid value to add item';
+        }
+        else if (this.state.options.indexOf(option) > -1) {
+            return 'This option already exists';
+        }
+        else {
+            // BAD options: prevState.options.push(option) <- changing previous state
+            // GOOD use array concat method options: prevState.options.concat([option])
+            // BEST use array concat method options: prevState.options.concat(option)
+            this.setState((prevState) => ({
+                options: prevState.options.concat(option)
+            }))
+        }
+    }
 
-  handleDeleteOption = (optionToRemove) => {
-      console.log('handleDeleteOption', optionToRemove);
-      // leverage Arrays.filter to create a new array of options filtering out the unmatched one
-      this.setState((prevState) => ({
-          options: prevState.options.filter((option) => {
-              return optionToRemove !== option;
-          })
-      }));
-  }
+    handlePick = () => {
+        console.log('handlePick');
+        const randomNum = Math.floor(Math.random() * this.state.options.length);
+        const option = this.state.options[randomNum];
+        this.setState(() => ({ selectedOption: option }));
+    }
 
-  handleClearSelectedOption = () => {
-    this.setState(() => ({ selectedOption: undefined }));
-  }
+    handleDeleteOption = (optionToRemove) => {
+        console.log('handleDeleteOption', optionToRemove);
+        // leverage Arrays.filter to create a new array of options filtering out the unmatched one
+        this.setState((prevState) => ({
+            options: prevState.options.filter((option) => {
+                return optionToRemove !== option;
+            })
+        }));
+    }
 
-  render() {
-      const subtitle = 'Put your life in the hands of a computer';
-      return (
-          <div>
-              <Header 
-                  subtitle={subtitle} 
-              />
-              <Action
-                  hasOptions={this.state.options.length > 0}
-                  handlePick={this.handlePick}
-              />
-              <Options
-                  options={this.state.options}
-                  handleDeleteOptions={this.handleDeleteOptions}
-                  handleDeleteOption={this.handleDeleteOption}
-              />
-              <AddOption
-                  handleAddOption={this.handleAddOption}
-              />
-              <OptionModal 
-                selectedOption={this.state.selectedOption}
-                handleClearSelectedOption={this.handleClearSelectedOption}
-              />
-          </div>
-      )
-  }
+    handleClearSelectedOption = () => {
+        this.setState(() => ({ selectedOption: undefined }));
+    }
+
+    render() {
+        const subtitle = 'Put your life in the hands of a computer';
+        return (
+            <div>
+                <Header
+                    subtitle={subtitle}
+                />
+                <div className="container">
+                    <Action
+                        hasOptions={this.state.options.length > 0}
+                        handlePick={this.handlePick}
+                    />
+                    <div className="widget">
+                        <Options
+                            options={this.state.options}
+                            handleDeleteOptions={this.handleDeleteOptions}
+                            handleDeleteOption={this.handleDeleteOption}
+                        />
+                        <AddOption
+                            handleAddOption={this.handleAddOption}
+                        />
+                    </div>
+                    
+                    <OptionModal
+                        selectedOption={this.state.selectedOption}
+                        handleClearSelectedOption={this.handleClearSelectedOption}
+                    />
+                </div>
+
+            </div>
+        )
+    }
 }

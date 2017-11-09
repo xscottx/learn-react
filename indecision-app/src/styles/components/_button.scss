@@ -1,0 +1,36 @@
+// big button
+.big-button {
+  background: $purple;
+  border: none;
+  border-bottom: .6rem solid darken($purple, 10%);  // add color and darken button color by 10%
+  color: white;
+  font-weight: bold;
+  font-size: $l-size;
+  width: 100%;
+  margin-bottom: $xl-size;
+  padding: 2.4rem;
+}
+
+.big-button:disabled {
+  opacity: .5;
+}
+
+// button
+.button {
+  background: $purple;
+  border: none;
+  border-bottom: .3rem solid darken($purple, 10%);
+  color: white;
+  font-weight: 500;
+  padding: $s-size;
+}
+
+// Block Element Modifier (BEM), modifier syntax is '--', element is '__'
+
+// this modifies the button (overrides)
+.button--link {
+  background: none;
+  border: none;
+  color: $off-white;
+  padding: 0;
+}
