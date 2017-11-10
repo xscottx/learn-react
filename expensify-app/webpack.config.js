@@ -32,7 +32,8 @@ module.exports = {
   // LIFE HACK! source map shows exact file and line of code where error is in development
   devtool: 'cheap-module-eval-source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'public')
+    contentBase: path.join(__dirname, 'public'),
+    historyApiFallback: true
   }
 };
 
