@@ -1,3 +1,5 @@
+// use m-size for small screens and xl-size for large screen
+
 .header {
   background: $off-black;
   color: white;
@@ -16,4 +18,11 @@
   font-size: $m-size;
   font-weight: 500;
   margin: 0;
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .header {
+    flex-direction: flow;
+    margin-bottom: $xl-size;
+  }
 }
