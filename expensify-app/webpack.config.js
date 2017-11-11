@@ -10,7 +10,7 @@ console.log(path.join(__dirname, 'public'));
 // created a rule for file that ends in .js not in node_modules, run thru babel
 // created new rule to handle css and scss (style) loaders
 module.exports = {
-  entry: './src/app.js',
+  entry: './src/playground/destructuring.js',
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js'
