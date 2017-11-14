@@ -36,3 +36,22 @@ const book = {
 const {name: publisherName = 'Anonymous'} = book.publisher;
 
 console.log(publisherName);
+
+// Array destructuring
+
+const address = ['1299 S Juniper Street', 'Philadelphia', 'Pennsylvania', '19147'];
+
+// creates vars for 4 element array
+// const [street, citee, state, zip] = address;
+
+// creates vars for X element array
+// const [, , state] = address;
+
+// creates vars for X element array w/ initializer
+const [, , state = 'New York'] = address;
+console.log(`you are in ${state}`);
+
+// challenge
+const item = ['Coffee (hot)', '$2.00', '$2.50', '$2.75'];
+const [name, , medium] = item;
+console.log(`A medium ${name} costs ${medium}`);

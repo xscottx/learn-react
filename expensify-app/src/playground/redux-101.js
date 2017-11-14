@@ -1,18 +1,49 @@
 import { createStore } from 'redux';
 
-// values passed into function are stored inside 'action' object
-// previous state passed into function are stored in 'state' object
-const store = createStore((state = { count: 0 }, action) => {
+// Action creators - functions that return action objects
+const incrementCount = ({incrementBy = 1} = {}) => ({
+  type: 'INCREMENT',
+  incrementBy
+})
+// same as incrementBy = incrementBy
+
+const decrementCount = ({decrementBy = 1} = {}) => ({
+  type: 'DECREMENT',
+  decrementBy
+})
+
+const set = ({count = 0} = {}) => ({
+  type: 'SET',
+  count
+})
+
+const reset = () => ({type: 'RESET'})
+
+// Reducers
+// 1. reducers are pure functions
+//    - the output is purely determined by the input
+// 2. never change state or action
+
+let a = 10;
+// NOT A PURE FUNCTION! bc it depends on something outside of input
+const add = (b) => {
+  return a + b;
+}
+let result;
+// NOT A PURE FUNCTION! bc it changes a variable outside
+const add2 = (a, b) => {
+  result = a + b;
+}
+
+const countReducer = (state = { count: 0 }, action) => {
   switch (action.type) {
     case 'INCREMENT':
-      const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
       return {
-        count: state.count + incrementBy
+        count: state.count + action.incrementBy
       }
     case 'DECREMENT':
-      const decrementBy = typeof action.decrementBy === 'number' ? action.decrementBy : 1;
       return {
-        count: state.count - decrementBy
+        count: state.count - action.decrementBy
       }
     case 'SET':
       return {
@@ -25,7 +56,10 @@ const store = createStore((state = { count: 0 }, action) => {
     default:
       return state;
   }
-});
+}
+// values passed into function are stored inside 'action' object
+// previous state passed into function are stored in 'state' object
+const store = createStore(countReducer);
 
 // subscribe/unsubscribe to changes in the store via toggle
 const unsubscribe = store.subscribe(() => {
@@ -35,27 +69,16 @@ const unsubscribe = store.subscribe(() => {
 // Actions - nothing more than an object that gets sent to the store
 // stores are sent via 'dispatch'
 // 'type' is a required property
-store.dispatch({
-  type: 'INCREMENT',
-  incrementBy: 5
-});
+store.dispatch(incrementCount({incrementBy: 5}));
 
 // unsubscribe(); // will toggle off store update subscriptions
 
-store.dispatch({
-  type: 'INCREMENT'
-});
+// store.dispatch({
+//   type: 'INCREMENT'
+// });
 
-store.dispatch({
-  type: 'RESET'
-});
+store.dispatch(reset());
 
-store.dispatch({
-  type: 'DECREMENT',
-  decrementBy: 4
-});
+store.dispatch(decrementCount({decrementBy: 10}));
 
-store.dispatch({
-  type: 'SET',
-  count: 101
-});
+store.dispatch(set({count: 101}));
