@@ -4,14 +4,18 @@ import 'react-dates/initialize';
 import {SingleDatePicker} from 'react-dates'; // https://github.com/airbnb/react-dates
 import 'react-dates/lib/css/_datepicker.css';
 
-class ExpenseForm extends React.Component {
-  state = {
-    description: '',
-    note: '',
-    amount: '',
-    createdAt: moment(),
-    calendarFocused: false,
-    error: ''
+export default class ExpenseForm extends React.Component {
+  constructor(props) {
+    super(props);
+   
+    this.state = {
+      description: props.expense ? props.expense.description : '',
+      note: props.expense ? props.expense.note : '',
+      amount: props.expense ? (props.expense.amount / 100).toString() : '',
+      createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+      calendarFocused: false,
+      error: ''
+    }
   }
 
   onDescriptionChange = (e) => {
@@ -103,5 +107,3 @@ class ExpenseForm extends React.Component {
     )
   }
 }
-
-export default ExpenseForm;
