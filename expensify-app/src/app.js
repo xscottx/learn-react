@@ -9,7 +9,8 @@ import {addExpense} from './actions/expenses';
 import {setTextFilter} from './actions/filters';
 import getVisibleExpenses from './selectors/expenses';
 import { setTimeout } from 'core-js/library/web/timers';
-
+import 'react-dates/lib/css/_datepicker.css';
+import 'react-dates/initialize';
 
 const store = configureStore();
 
