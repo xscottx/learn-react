@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --config=jest.config.json",
     "dev-server": "webpack-dev-server",
     "build": "webpack"
   },
@@ -23,6 +23,7 @@
     "dev-server": "^0.0.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.0",
     "eslint": "^4.10.0",
     "jest": "^22.0.5",
     "js-yaml": "^3.10.0",

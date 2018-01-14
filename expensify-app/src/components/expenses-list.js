@@ -3,12 +3,19 @@ import {connect} from 'react-redux';
 import ExpenseListItem from './expense-list-item';
 import selectExpenses from '../selectors/expenses';
 
-const ExpenseList = (props) => (
+// adding named export here to test dynamic component without connect
+export const ExpenseList = (props) => (
   <div>
-    <h1>Expense List</h1>
-    {props.expenses.map((expense) => {
-      return <ExpenseListItem key={expense.description} {...expense} />
-    })}
+    {
+      props.expenses.length === 0 ? (
+        <p>No expenses</p>
+      ) : (
+        props.expenses.map((expense) => {
+          return <ExpenseListItem key={expense.id} {...expense} />
+        })
+      )
+    }
+    
   </div>
 )
 
