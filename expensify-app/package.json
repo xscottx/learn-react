@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --config=jest.config.json",
     "dev-server": "webpack-dev-server",
-    "build": "webpack"
+    "build:dev": "webpack",
+    "build:prod": "webpack -p --env production"
   },
   "author": "Hoang Vo",
   "license": "ISC",
