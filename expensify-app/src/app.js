@@ -21,9 +21,9 @@ const store = configureStore();
 // getVisibleExpenses -> print visible ones to screen
 
 // Answer:
-const expenseOne = store.dispatch(addExpense({description: 'Water bill', note: 'my water bill', amount: 4500}));
-const expenseTwo = store.dispatch(addExpense({description: 'Gas bill', note: 'my gas bill', amount: 1000, createdAt: 999}));
-const expenseThree = store.dispatch(addExpense({description: 'Rent', note: 'my rent', amount: 109500}));
+// const expenseOne = store.dispatch(addExpense({description: 'Water bill', note: 'my water bill', amount: 4500}));
+// const expenseTwo = store.dispatch(addExpense({description: 'Gas bill', note: 'my gas bill', amount: 1000, createdAt: 999}));
+// const expenseThree = store.dispatch(addExpense({description: 'Rent', note: 'my rent', amount: 109500}));
 
 // setTimeout(() => {
 //   store.dispatch(setTextFilter('bill'))
