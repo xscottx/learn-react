@@ -15,6 +15,46 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 
+// child_removed, this lets u know what child got removed
+database.ref('expenses').on('child_removed', (snapshot) => {
+  console.log(snapshot.key, 'removed: ' + snapshot.val());
+})
+
+// child_changed, this lets u know when ur child has been changed
+database.ref('expenses').on('child_changed', (snapshot) => {
+  console.log(snapshot.key, 'changed: ' + snapshot.val());
+})
+
+// child_added, this lets u know when a child has been added (for initial children, and new children)
+database.ref('expenses').on('child_added', (snapshot) => {
+  console.log(snapshot.key, 'added: ' + snapshot.val());
+})
+
+// subscribe to changes to expenses, and builds out an array of expenses read back from firebase
+database.ref('expenses').on('value', (snapshot) => {
+  const expenses = [];
+
+  snapshot.forEach((childSnapshot) => {
+    expenses.push({
+      id: childSnapshot.key,
+      ...childSnapshot.val()
+    })
+  });
+
+  console.log(expenses);
+})
+
+// when u push an uuid is auto generated as key to ur object
+// database.ref('notes').push({
+//   title: 'To Do',
+//   body: 'Go for a run'
+// })
+
+// database.ref('notes/-L3zoGuFGh9bHte1Vdcq').update({
+//   body: 'Buy food'
+// })
+
+database.ref('notes/-L3zoGuFGh9bHte1Vdcq').remove();
 // setup data sub 
 // database.ref().on('value', (snapshot) => {
 //   console.log(snapshot.val());
