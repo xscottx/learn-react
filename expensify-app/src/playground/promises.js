@@ -11,8 +11,10 @@
 const promise = new Promise((resolve, reject) => {
   // Long running async task here
   setTimeout(() => {
-    reject('Something went wrong!');
-    
+    resolve({
+      name: 'Scott',
+      age: 21
+    });
   }, 5000);
 
 })
@@ -22,6 +24,20 @@ console.log('before');
 // register callback
 promise.then((data) => {
   console.log('1', data);
+
+  // returning a string for the next promise
+  // return 'some data';
+
+  // returning a promise to ensure it's the success case passed in
+  return new Promise((resolve, reject) => {
+    // Long running async task here
+    setTimeout(() => {
+      resolve('This is my other promise')      
+    }, 5000);
+  
+  });
+}).then((str) => {
+  console.log('does this run?', str);
 }).catch((error) => {
   console.log('error: ', error);
 });

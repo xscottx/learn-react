@@ -12,6 +12,7 @@ import { setTimeout } from 'core-js/library/web/timers';
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
 import './firebase/firebase';
+// import promise from './playground/promises';
 
 const store = configureStore();
 

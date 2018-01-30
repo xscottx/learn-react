@@ -1,12 +1,12 @@
 import React from 'react';
 import ExpenseForm from './expense-form';
 import { connect } from 'react-redux';
-import { addExpense } from '../actions/expenses';
+import { startAddExpense } from '../actions/expenses';
 
 // avoid in-line functions by moving over to class based components
 export class AddExpensePage extends React.Component {
   onSubmit = (expense) => {
-    this.props.addExpense(expense);
+    this.props.startAddExpense(expense);
     this.props.history.push('/');
   }
 
@@ -39,7 +39,7 @@ export class AddExpensePage extends React.Component {
 
 // New way - function 
 const mapDispatchToProps = (dispatch) => ({
-  addExpense: (expense) => dispatch(addExpense(expense))
+  startAddExpense: (expense) => dispatch(startAddExpense(expense))
 })
 
 // Old way - function that returns an object, can reduce to above to implicitly return object
