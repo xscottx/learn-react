@@ -5,7 +5,7 @@ import AppRouter from './routers/app-router';
 import configureStore from './store/configureStore';
 import 'normalize.css/normalize.css'; // wont work bc we are just using scss, need to update webpack.config.js
 import './styles/styles.scss';
-import {addExpense} from './actions/expenses';
+import {startSetExpenses} from './actions/expenses';
 import {setTextFilter} from './actions/filters';
 import getVisibleExpenses from './selectors/expenses';
 import { setTimeout } from 'core-js/library/web/timers';
@@ -22,4 +22,8 @@ const jsx = (
   </Provider>
 )
 
-ReactDOM.render(jsx, document.getElementById('app'));
+ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
+
+store.dispatch(startSetExpenses()).then(() => {
+  ReactDOM.render(jsx, document.getElementById('app'));
+});
