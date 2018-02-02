@@ -24,12 +24,12 @@ test('should render edit-expense', () => {
 
 test('should handle start edit expense', () => {
   wrapper.find('ExpenseForm').prop('onSubmit')(expenses[0]);
-  expect(history.push).toHaveBeenLastCalledWith('/');
+  expect(history.push).toHaveBeenLastCalledWith('/dashboard');
   expect(startEditExpense).toHaveBeenLastCalledWith(expenses[0].id, expenses[0]);
 })
 
 test('should handle start remove expense', () => {
   wrapper.find('button').simulate('click'); // use simulate click here instead of onSubmit
-  expect(history.push).toHaveBeenLastCalledWith('/');
+  expect(history.push).toHaveBeenLastCalledWith('/dashboard');
   expect(startRemoveExpense).toHaveBeenLastCalledWith({id: expenses[0].id});
 })
