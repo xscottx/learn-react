@@ -6,7 +6,7 @@ import configureStore from './store/configureStore';
 import 'normalize.css/normalize.css'; // wont work bc we are just using scss, need to update webpack.config.js
 import './styles/styles.scss';
 import {startSetExpenses} from './actions/expenses';
-import {setTextFilter} from './actions/filters';
+import {login, logout} from './actions/auth';
 import getVisibleExpenses from './selectors/expenses';
 import { setTimeout } from 'core-js/library/web/timers';
 import 'react-dates/lib/css/_datepicker.css';
@@ -37,7 +37,8 @@ ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 // do NOT have a route here to push
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log('user logged in')
+    console.log('user logged in', user.uid);
+    store.dispatch(login(user.uid));
     store.dispatch(startSetExpenses()).then(() => {
       renderApp();
       // if user is on / and after login they need to goto /dashboard
@@ -47,6 +48,7 @@ firebase.auth().onAuthStateChanged((user) => {
     });
   } else {
     console.log('user logged out');
+    store.dispatch(logout());
     renderApp();
     history.push('/');
   }
