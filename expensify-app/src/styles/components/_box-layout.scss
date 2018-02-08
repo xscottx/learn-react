@@ -1,0 +1,23 @@
+.box-layout {
+    background: url('/images/bg.jpg');
+    height: 100vh;  // viewport height
+    width: 100vw;   // viewport width
+    background-size: cover; // makes sure to always cover container w/ image, to handle browser width & size
+    display: flex;  // leverage flex boxes
+    justify-content: center;    // center 1 way
+    align-items: center;    // center other way
+}
+
+// __ means updating element
+.box-layout__box {
+    background: fade-out(white, .15);  // to create a slightly transparent background for box
+    border-radius: 3px; // add slight border
+    text-align: center; // aligns text in center
+    width: 25rem;   // gives us fixed width
+    padding: $l-size $m-size;   // leverage sizing templates
+}
+
+.box-layout__title {
+    margin: 0 0 $m-size 0;  // remove margins for all but the bottom
+    line-height: 1; // adjust line height to 1 to evenly distribute between top & bottom
+}

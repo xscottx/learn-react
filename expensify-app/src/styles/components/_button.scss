@@ -1,0 +1,8 @@
+.button {
+    background: $blue;
+    color: white;   // change text font to white
+    border: none;   // remove border 
+    padding: $s-size;   // setting padding size to small
+    font-weight: 300;
+    font-size: $font-size;  // bigger than paragraph font size
+}

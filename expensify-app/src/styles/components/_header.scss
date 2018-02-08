@@ -1,0 +1,18 @@
+.header {
+    background: $dark-blue;
+}
+
+.header__content {
+    align-items: center;    // align items vertically in center
+    display: flex;  // flex for adjusting boxes
+    justify-content: space-between; // use space-between to distribute leftover space between title and button
+    padding: $s-size 0; // set small size top/bottom and 0 padding l/r
+}
+
+.header__title {
+    color: white;
+    text-decoration: none;  // allows us to clear text decoration links like the underscore
+    h1 {    // target all h1 under header title
+        margin: 0;
+    }
+}

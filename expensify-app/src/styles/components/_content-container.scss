@@ -1,0 +1,5 @@
+.content-container {
+    max-width: 80rem;   // need to have 10rems on each side
+    margin: 0 auto; // makes sure left and right are evenly distributed
+    padding: 0 $m-size; // makes sure content doesn't push up to the edge of browser
+}
