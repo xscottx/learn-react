@@ -26,7 +26,7 @@ beforeEach((done) => {
     expensesData[id] = { description, note, amount, createdAt };
   })
   database.ref(`users/${uid}/expenses`).set(expensesData).then(() => { done() });
-})a
+});
 
 
 test('should setup remove expense action object', () => {
