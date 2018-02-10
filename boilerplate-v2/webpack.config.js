@@ -26,7 +26,7 @@ module.exports = (env) => {
 
   console.log('env', env);
   return {
-    entry: ['babel-polyfill', './src/app.js'],
+    entry: ['babel-polyfill', './src/app.jsx'],
     output: {
       path: path.join(__dirname, 'public', 'dist'),
       filename: 'bundle.js'
@@ -34,7 +34,7 @@ module.exports = (env) => {
     module: {
       rules: [{
         loader: 'babel-loader',
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/
       }, {
         test: /\.s?css$/,
@@ -55,6 +55,9 @@ module.exports = (env) => {
           ]
         })
       }]
+    },
+    resolve: {
+      extensions: ['.js', '.jsx']
     },
     plugins: [
       CSSExtract,
