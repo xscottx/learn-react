@@ -3,6 +3,17 @@
     color: white;   // change text font to white
     border: none;   // remove border 
     padding: $s-size;   // setting padding size to small
+    display: inline-block;  // make sure vertical margin and padding are taken into effect (default is inline)
     font-weight: 300;
-    font-size: $font-size;  // bigger than paragraph font size
+    font-size: $font-size-large;  // bigger than paragraph font size
+    text-decoration: none;  // remove underline from button
+    line-height: 1; // have line in 1 line for buttons
+}
+
+.button--link { // link modifier for button
+    background: none;   // remove background blue
+}
+
+.button--secondary {    // modifier for secondary button
+    background: #888;
 }

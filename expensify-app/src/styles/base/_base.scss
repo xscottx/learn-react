@@ -1,3 +1,7 @@
+* {                             // universal selector setting
+    box-sizing: border-box;    // default value is content-box, calculates size of content for value + padding + border
+                                // border-box will just use the value and remove the padding and border from calculation
+}
 // rem - better pixels for accessibility
 html {
   font-size: 62.5%; // base 10 system, 1rem === 16px

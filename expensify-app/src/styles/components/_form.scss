@@ -1,0 +1,13 @@
+.form {
+    display: flex;  // get flex boxes set up
+    flex-direction: column; // get input fields to be column stacked
+    // make sure to add content-container so that the form elements dont run right into the edges
+    >* {
+        margin-bottom: $m-size; // direct all direct-children of form to m-size
+    }
+}
+
+.form__error {
+    margin: 0 0 $m-size 0;  // set margin bottom a tad
+    font-style: italic; // give error message a little bit
+}

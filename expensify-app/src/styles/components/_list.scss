@@ -1,0 +1,63 @@
+.list-header {
+    background: $off-white; // setting off white color to headers
+    border: 1px solid darken($off-white, 7%);   // darken the off-white color by 7%
+    color: $grey;   // setting color of header fontto grey
+    display: flex;  // set up flex to move expense and amount distributed
+    justify-content: space-between; // push them to the left and right edges
+    padding: $s-size $m-size;   // padding around headers - top and bottom small, right and left medium
+}
+
+.list-item {
+    display: flex;  // set flex for desktop and mobile
+    flex-direction: column; // set direction to column so it stacks
+    border: 1px solid darken($off-white, 7%);   // add a border and darken for items
+    border-top: none;   // this will prevent the double border stack up top
+    color: $dark-grey;  // set the color of the items
+    padding: $s-size;   // put spacing between the elements inside item
+    text-decoration: none;  // remove the underline
+    // for transitions to work, need to set css element, duration, and animation function
+    transition: background .3s ease;    // makes sure animation starts, stops, and ease
+    &:hover {   // equivalent to '.list-item:hover'
+        background: $off-white;
+    }
+    @media (min-width: $desktop-breakpoint) {
+        flex-direction: row;    // changing to row aligned for desktop
+        justify-content: space-between; // putting space between elements
+        align-items: center;    // align elements inside item to center
+    }
+}
+
+.list-body {
+    margin-bottom: $m-size; // change bottom of list to have margin for mobile
+    @media (min-width: $desktop-breakpoint) {
+        margin-bottom: $l-size; // change bottom of list to have larger margin for desktop
+    }
+}
+
+.list-item__title {
+    margin: 0;  // moving margin to 0 for title
+    word-break: break-all;  // really cool trick to handle edge cases for text that's super long
+}
+
+.list-item__sub-title {
+    color: $grey;   // set subtitle to grey
+    font-size: $font-size-small;    // set size of font to small, compared to the title
+}
+
+.list-item__data {
+    margin: $s-size 0 0 0;  // clear margins except for top - for mobile
+    @media (min-width: $desktop-breakpoint) {
+        margin: 0;  // setting desktop margin to 0
+        padding-left: $s-size;  // setting padding between amount and description title
+    }
+}
+
+.list-item--message {   // modifiers are meant for you to add/append onto another class like list-item
+    align-items: center;    // align items in center
+    justify-content: center;    // justify content to center of cell
+    color: $grey;
+    padding: $m-size;
+    &:hover {   // override hover to not do transition
+        background: none;
+    }
+}

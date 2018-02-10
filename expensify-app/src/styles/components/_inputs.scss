@@ -1,0 +1,18 @@
+.text-input {
+    border: 1px solid #cacccd;
+    height: 50px;   // setting height of text input box
+    padding: $s-size;   // adding padding all around the text inputs
+    font-size: $font-size-large;    // change font size to large for what people enter
+    font-weight: 300;   // create a thin font
+}
+
+.select {
+    @extend .text-input;    // extend text-input, this could also be done above like '.text-input, .select' but this way it allows
+                            // you to have a separate section for things u want to change or add
+    
+}
+
+.textarea {                 // extend text-input, and add special height to box to give more room to type
+    @extend .text-input;
+    height: 10rem;
+}

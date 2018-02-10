@@ -1,0 +1,12 @@
+.loader {
+    height: 100vh;  // set browser height to 100%
+    width: 100vw;   // set browser width to 100%
+    display: flex;  // enable flex boxes
+    align-items: center;    // center items
+    justify-content: center;    // center align box
+}
+
+.loader__image {
+    height: 6rem;   // to change height of image
+    width: 6rem;    // change width of image
+}

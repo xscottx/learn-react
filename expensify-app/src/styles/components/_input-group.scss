@@ -1,0 +1,22 @@
+.input-group {
+    display: flex;  // to get things going left to right
+    margin-bottom: $m-size; // set up margin bottom for mobile
+    flex-direction: column; // set direction to be in column for mobile
+
+    // mobile responsive to make things stack vertically
+    @media (min-width: $desktop-breakpoint) {
+        flex-direction: row;    // set direction to be row for desktop
+        margin-bottom: $l-size; // set margin size for desktop
+    }
+}
+
+.input-group__item {
+    margin-bottom: $s-size; // set size for margin bottom to be smaller
+    
+    // mobile responsive to make things stack vertically
+    @media (min-width: $desktop-breakpoint) {
+        margin: 0 $s-size 0 0;  // need to remove margin on bottom, for larger screens set margin on right
+    }
+}
+
+

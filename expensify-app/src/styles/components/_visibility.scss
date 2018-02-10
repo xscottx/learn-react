@@ -1,0 +1,13 @@
+.show-for-mobile {
+    // for sizes larger than mobile breakpoint, we want to hide the others
+    @media (min-width: $desktop-breakpoint) {
+        display: none
+    }
+}
+
+.show-for-desktop {
+    // have to add -0.1rem to ensure both are not in effect at the same time
+    @media (max-width: $desktop-breakpoint - 0.1rem) {   // makes sure display none only applies for things smaller than breakpoint
+        display: none;
+    }
+}
