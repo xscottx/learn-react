@@ -38,5 +38,9 @@ exports[`should render edit-expense 1`] = `
       Remove Expense
     </button>
   </div>
+  <ConfirmModal
+    handleCancel={[Function]}
+    handleRemoveOption={[Function]}
+  />
 </div>
 `;

@@ -30,6 +30,7 @@ test('should handle start edit expense', () => {
 
 test('should handle start remove expense', () => {
   wrapper.find('button').simulate('click'); // use simulate click here instead of onSubmit
-  expect(history.push).toHaveBeenLastCalledWith('/dashboard');
-  expect(startRemoveExpense).toHaveBeenLastCalledWith({id: expenses[0].id});
+  expect(wrapper.state('selectedOption')).toBe('Gum');
+  // expect(history.push).toHaveBeenLastCalledWith('/dashboard');
+  // expect(startRemoveExpense).toHaveBeenLastCalledWith({id: expenses[0].id});
 })

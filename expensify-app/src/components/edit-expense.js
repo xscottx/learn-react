@@ -2,16 +2,31 @@ import React from 'react';
 import ExpenseForm from './expense-form';
 import {connect} from 'react-redux';
 import {startEditExpense, startRemoveExpense} from '../actions/expenses';
+import ConfirmModal from './confirm-modal';
 
 export class EditExpensePage extends React.Component {
+  state = {
+    selectedOption: undefined
+  }
+  
   onSubmit = (expense) => {
     this.props.startEditExpense(this.props.expense.id, expense);
     this.props.history.push('/dashboard');
   }
 
   onClick = () => {
+    this.setState(() => ({ selectedOption: this.props.expense.description }));
+  }
+
+  handleRemoveOption = () => {
+    console.log('handleRemoveOption');
     this.props.startRemoveExpense({ id: this.props.expense.id });
     this.props.history.push('/dashboard');
+  }
+
+  handleCancel = () => {
+    console.log('handleCancel');
+    this.setState(() => ({ selectedOption: undefined }));
   }
 
   render() {
@@ -30,6 +45,10 @@ export class EditExpensePage extends React.Component {
           />
           <button className="button button--secondary" onClick={this.onClick}>Remove Expense</button>
         </div>
+        <ConfirmModal
+          selectedOption={this.state.selectedOption}
+          handleCancel={this.handleCancel}
+          handleRemoveOption={this.handleRemoveOption} />
       </div>
     )
   }

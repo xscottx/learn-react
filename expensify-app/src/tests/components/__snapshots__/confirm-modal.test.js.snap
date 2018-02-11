@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render confirm modal 1`] = `
+<Modal
+  ariaHideApp={false}
+  bodyOpenClassName="ReactModal__Body--open"
+  className="modal"
+  closeTimeoutMS={200}
+  contentLabel="Are you sure?"
+  isOpen={true}
+  onRequestClose={[MockFunction]}
+  parentSelector={[Function]}
+  portalClassName="ReactModalPortal"
+  shouldCloseOnEsc={true}
+  shouldCloseOnOverlayClick={true}
+  shouldFocusAfterRender={true}
+  shouldReturnFocusAfterClose={true}
+>
+  <h3
+    className="modal__title"
+  >
+    Delete expense?
+  </h3>
+  <p
+    className="modal__body"
+  >
+    Gum
+  </p>
+  <button
+    className="button button--secondary"
+    onClick={[MockFunction]}
+  >
+    Delete
+  </button>
+</Modal>
+`;
