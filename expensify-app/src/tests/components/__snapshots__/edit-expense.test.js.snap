@@ -14,29 +14,29 @@ exports[`should render edit-expense 1`] = `
         Edit Expense
       </h1>
     </div>
-    <div
-      className="content-container"
-    >
-      <ExpenseForm
-        className="form"
-        expense={
-          Object {
-            "amount": 195,
-            "createdAt": 0,
-            "description": "Gum",
-            "id": "1",
-            "note": "yummy",
-          }
+  </div>
+  <div
+    className="content-container"
+  >
+    <ExpenseForm
+      className="form"
+      expense={
+        Object {
+          "amount": 195,
+          "createdAt": 0,
+          "description": "Gum",
+          "id": "1",
+          "note": "yummy",
         }
-        onSubmit={[Function]}
-      />
-      <button
-        className="button button--secondary"
-        onClick={[Function]}
-      >
-        Remove Expense
-      </button>
-    </div>
+      }
+      onSubmit={[Function]}
+    />
+    <button
+      className="button button--secondary"
+      onClick={[Function]}
+    >
+      Remove Expense
+    </button>
   </div>
 </div>
 `;

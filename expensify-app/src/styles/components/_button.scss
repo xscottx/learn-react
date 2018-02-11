@@ -17,3 +17,14 @@
 .button--secondary {    // modifier for secondary button
     background: #888;
 }
+
+.button__container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: $m-size;
+}
+
+.button--form-link {
+    background: $off-white;
+    color: $dark-grey;
+}

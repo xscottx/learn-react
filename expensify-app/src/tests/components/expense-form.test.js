@@ -101,3 +101,10 @@ test('should set calendar focus on change', () => {
   wrapper.find('withStyles(SingleDatePicker)').prop('onFocusChange')({focused});
   expect(wrapper.state('calendarFocused')).toBe(focused);
 })
+
+// test('should go back to dashboard', () => {
+//   const history = jest.fn();
+//   const wrapper = shallow(<ExpenseForm history={history}/>);
+//   wrapper.find('Link').simulate('click');
+//   expect(history).toHaveBeenCalled();
+// })
